@@ -61,6 +61,12 @@ build_script:
   - echo "PATH=%PATH%"
   - dir win32
   - cmd /c win32\build_expat_iss.bat
+  - win32\expat-win32bin-2.2.9.exe /VERYSILENT /SUPPRESSMSGBOXES /NORESTART
+  - cd C:\Program Files (x86)\Expat *\
+  - md Build
+  - cd Build
+  - cmake -G"Visual Studio 15 2017" -DCMAKE_BUILD_TYPE=%CONFIGURATION% ..\Source\
+  - msbuild "expat.sln" /m /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
 
 artifacts:
   - path: '**\expat-win32bin-*.exe'
